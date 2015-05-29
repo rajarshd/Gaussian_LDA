@@ -1,0 +1,576 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- NewPage -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="iso-8859-1">
+<title>Log (Apache Commons Logging 1.2 API)</title>
+<link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="Log (Apache Commons Logging 1.2 API)";
+    }
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+<!-- ========= START OF TOP NAVBAR ======= -->
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/Log.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../index-all.html">Index</a></li>
+<li><a href="../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev Class</li>
+<li><a href="../../../../org/apache/commons/logging/LogConfigurationException.html" title="class in org.apache.commons.logging"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../index.html?org/apache/commons/logging/Log.html" target="_top">Frames</a></li>
+<li><a href="Log.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
+<!-- ========= END OF TOP NAVBAR ========= -->
+<!-- ======== START OF CLASS DATA ======== -->
+<div class="header">
+<div class="subTitle">org.apache.commons.logging</div>
+<h2 title="Interface Log" class="title">Interface Log</h2>
+</div>
+<div class="contentContainer">
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<dl>
+<dt>All Known Implementing Classes:</dt>
+<dd><a href="../../../../org/apache/commons/logging/impl/AvalonLogger.html" title="class in org.apache.commons.logging.impl">AvalonLogger</a>, <a href="../../../../org/apache/commons/logging/impl/Jdk13LumberjackLogger.html" title="class in org.apache.commons.logging.impl">Jdk13LumberjackLogger</a>, <a href="../../../../org/apache/commons/logging/impl/Jdk14Logger.html" title="class in org.apache.commons.logging.impl">Jdk14Logger</a>, <a href="../../../../org/apache/commons/logging/impl/Log4JLogger.html" title="class in org.apache.commons.logging.impl">Log4JLogger</a>, <a href="../../../../org/apache/commons/logging/impl/LogKitLogger.html" title="class in org.apache.commons.logging.impl">LogKitLogger</a>, <a href="../../../../org/apache/commons/logging/impl/NoOpLog.html" title="class in org.apache.commons.logging.impl">NoOpLog</a>, <a href="../../../../org/apache/commons/logging/impl/SimpleLog.html" title="class in org.apache.commons.logging.impl">SimpleLog</a></dd>
+</dl>
+<hr>
+<br>
+<pre>public interface <span class="strong">Log</span></pre>
+<div class="block">A simple logging interface abstracting logging APIs.  In order to be
+ instantiated successfully by <a href="../../../../org/apache/commons/logging/LogFactory.html" title="class in org.apache.commons.logging"><code>LogFactory</code></a>, classes that implement
+ this interface must have a constructor that takes a single String
+ parameter representing the "name" of this Log.
+ <p>
+ The six logging levels used by <code>Log</code> are (in order):
+ <ol>
+ <li>trace (the least serious)</li>
+ <li>debug</li>
+ <li>info</li>
+ <li>warn</li>
+ <li>error</li>
+ <li>fatal (the most serious)</li>
+ </ol>
+ The mapping of these log levels to the concepts used by the underlying
+ logging system is implementation dependent.
+ The implementation should ensure, though, that this ordering behaves
+ as expected.
+ <p>
+ Performance is often a logging concern.
+ By examining the appropriate property,
+ a component can avoid expensive operations (producing information
+ to be logged).
+ <p>
+ For example,
+ <pre>
+    if (log.isDebugEnabled()) {
+        ... do something expensive ...
+        log.debug(theResult);
+    }
+ </pre>
+ <p>
+ Configuration of the underlying logging system will generally be done
+ external to the Logging APIs, through whatever mechanism is supported by
+ that system.</div>
+<dl><dt><span class="strong">Version:</span></dt>
+  <dd>$Id: Log.java 1606045 2014-06-27 12:11:56Z tn $</dd></dl>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
+<!-- ========== METHOD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#debug(java.lang.Object)">debug</a></strong>(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message)</code>
+<div class="block">Logs a message with debug log level.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#debug(java.lang.Object, java.lang.Throwable)">debug</a></strong>(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message,
+     <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</code>
+<div class="block">Logs an error with debug log level.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#error(java.lang.Object)">error</a></strong>(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message)</code>
+<div class="block">Logs a message with error log level.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#error(java.lang.Object, java.lang.Throwable)">error</a></strong>(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message,
+     <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</code>
+<div class="block">Logs an error with error log level.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#fatal(java.lang.Object)">fatal</a></strong>(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message)</code>
+<div class="block">Logs a message with fatal log level.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#fatal(java.lang.Object, java.lang.Throwable)">fatal</a></strong>(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message,
+     <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</code>
+<div class="block">Logs an error with fatal log level.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#info(java.lang.Object)">info</a></strong>(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message)</code>
+<div class="block">Logs a message with info log level.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#info(java.lang.Object, java.lang.Throwable)">info</a></strong>(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message,
+    <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</code>
+<div class="block">Logs an error with info log level.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#isDebugEnabled()">isDebugEnabled</a></strong>()</code>
+<div class="block">Is debug logging currently enabled?</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#isErrorEnabled()">isErrorEnabled</a></strong>()</code>
+<div class="block">Is error logging currently enabled?</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#isFatalEnabled()">isFatalEnabled</a></strong>()</code>
+<div class="block">Is fatal logging currently enabled?</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#isInfoEnabled()">isInfoEnabled</a></strong>()</code>
+<div class="block">Is info logging currently enabled?</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#isTraceEnabled()">isTraceEnabled</a></strong>()</code>
+<div class="block">Is trace logging currently enabled?</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#isWarnEnabled()">isWarnEnabled</a></strong>()</code>
+<div class="block">Is warn logging currently enabled?</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#trace(java.lang.Object)">trace</a></strong>(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message)</code>
+<div class="block">Logs a message with trace log level.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#trace(java.lang.Object, java.lang.Throwable)">trace</a></strong>(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message,
+     <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</code>
+<div class="block">Logs an error with trace log level.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#warn(java.lang.Object)">warn</a></strong>(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message)</code>
+<div class="block">Logs a message with warn log level.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/apache/commons/logging/Log.html#warn(java.lang.Object, java.lang.Throwable)">warn</a></strong>(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message,
+    <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</code>
+<div class="block">Logs an error with warn log level.</div>
+</td>
+</tr>
+</table>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
+<!-- ============ METHOD DETAIL ========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="debug(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>debug</h4>
+<pre>void&nbsp;debug(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message)</pre>
+<div class="block">Logs a message with debug log level.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>message</code> - log this message</dd></dl>
+</li>
+</ul>
+<a name="debug(java.lang.Object, java.lang.Throwable)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>debug</h4>
+<pre>void&nbsp;debug(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message,
+         <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</pre>
+<div class="block">Logs an error with debug log level.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>message</code> - log this message</dd><dd><code>t</code> - log this cause</dd></dl>
+</li>
+</ul>
+<a name="error(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>error</h4>
+<pre>void&nbsp;error(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message)</pre>
+<div class="block">Logs a message with error log level.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>message</code> - log this message</dd></dl>
+</li>
+</ul>
+<a name="error(java.lang.Object, java.lang.Throwable)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>error</h4>
+<pre>void&nbsp;error(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message,
+         <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</pre>
+<div class="block">Logs an error with error log level.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>message</code> - log this message</dd><dd><code>t</code> - log this cause</dd></dl>
+</li>
+</ul>
+<a name="fatal(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fatal</h4>
+<pre>void&nbsp;fatal(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message)</pre>
+<div class="block">Logs a message with fatal log level.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>message</code> - log this message</dd></dl>
+</li>
+</ul>
+<a name="fatal(java.lang.Object, java.lang.Throwable)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fatal</h4>
+<pre>void&nbsp;fatal(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message,
+         <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</pre>
+<div class="block">Logs an error with fatal log level.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>message</code> - log this message</dd><dd><code>t</code> - log this cause</dd></dl>
+</li>
+</ul>
+<a name="info(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>info</h4>
+<pre>void&nbsp;info(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message)</pre>
+<div class="block">Logs a message with info log level.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>message</code> - log this message</dd></dl>
+</li>
+</ul>
+<a name="info(java.lang.Object, java.lang.Throwable)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>info</h4>
+<pre>void&nbsp;info(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message,
+        <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</pre>
+<div class="block">Logs an error with info log level.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>message</code> - log this message</dd><dd><code>t</code> - log this cause</dd></dl>
+</li>
+</ul>
+<a name="isDebugEnabled()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isDebugEnabled</h4>
+<pre>boolean&nbsp;isDebugEnabled()</pre>
+<div class="block">Is debug logging currently enabled?
+ <p>
+ Call this method to prevent having to perform expensive operations
+ (for example, <code>String</code> concatenation)
+ when the log level is more than debug.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if debug is enabled in the underlying logger.</dd></dl>
+</li>
+</ul>
+<a name="isErrorEnabled()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isErrorEnabled</h4>
+<pre>boolean&nbsp;isErrorEnabled()</pre>
+<div class="block">Is error logging currently enabled?
+ <p>
+ Call this method to prevent having to perform expensive operations
+ (for example, <code>String</code> concatenation)
+ when the log level is more than error.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if error is enabled in the underlying logger.</dd></dl>
+</li>
+</ul>
+<a name="isFatalEnabled()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isFatalEnabled</h4>
+<pre>boolean&nbsp;isFatalEnabled()</pre>
+<div class="block">Is fatal logging currently enabled?
+ <p>
+ Call this method to prevent having to perform expensive operations
+ (for example, <code>String</code> concatenation)
+ when the log level is more than fatal.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if fatal is enabled in the underlying logger.</dd></dl>
+</li>
+</ul>
+<a name="isInfoEnabled()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isInfoEnabled</h4>
+<pre>boolean&nbsp;isInfoEnabled()</pre>
+<div class="block">Is info logging currently enabled?
+ <p>
+ Call this method to prevent having to perform expensive operations
+ (for example, <code>String</code> concatenation)
+ when the log level is more than info.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if info is enabled in the underlying logger.</dd></dl>
+</li>
+</ul>
+<a name="isTraceEnabled()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isTraceEnabled</h4>
+<pre>boolean&nbsp;isTraceEnabled()</pre>
+<div class="block">Is trace logging currently enabled?
+ <p>
+ Call this method to prevent having to perform expensive operations
+ (for example, <code>String</code> concatenation)
+ when the log level is more than trace.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if trace is enabled in the underlying logger.</dd></dl>
+</li>
+</ul>
+<a name="isWarnEnabled()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isWarnEnabled</h4>
+<pre>boolean&nbsp;isWarnEnabled()</pre>
+<div class="block">Is warn logging currently enabled?
+ <p>
+ Call this method to prevent having to perform expensive operations
+ (for example, <code>String</code> concatenation)
+ when the log level is more than warn.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if warn is enabled in the underlying logger.</dd></dl>
+</li>
+</ul>
+<a name="trace(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>trace</h4>
+<pre>void&nbsp;trace(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message)</pre>
+<div class="block">Logs a message with trace log level.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>message</code> - log this message</dd></dl>
+</li>
+</ul>
+<a name="trace(java.lang.Object, java.lang.Throwable)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>trace</h4>
+<pre>void&nbsp;trace(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message,
+         <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</pre>
+<div class="block">Logs an error with trace log level.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>message</code> - log this message</dd><dd><code>t</code> - log this cause</dd></dl>
+</li>
+</ul>
+<a name="warn(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>warn</h4>
+<pre>void&nbsp;warn(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message)</pre>
+<div class="block">Logs a message with warn log level.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>message</code> - log this message</dd></dl>
+</li>
+</ul>
+<a name="warn(java.lang.Object, java.lang.Throwable)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>warn</h4>
+<pre>void&nbsp;warn(<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;message,
+        <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</pre>
+<div class="block">Logs an error with warn log level.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>message</code> - log this message</dd><dd><code>t</code> - log this cause</dd></dl>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<!-- ========= END OF CLASS DATA ========= -->
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="class-use/Log.html">Use</a></li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../index-all.html">Index</a></li>
+<li><a href="../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev Class</li>
+<li><a href="../../../../org/apache/commons/logging/LogConfigurationException.html" title="class in org.apache.commons.logging"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../index.html?org/apache/commons/logging/Log.html" target="_top">Frames</a></li>
+<li><a href="Log.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+<p class="legalCopy"><small>Copyright &#169; 2001&#x2013;2014 <a href="http://www.apache.org/">The Apache Software Foundation</a>. All rights reserved.</small></p>
+</body>
+</html>

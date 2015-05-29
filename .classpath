@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/rajarshidas/DPGMM/Gaussian_LDA/external_libs/ejml-0.25.jar"/>
+	<classpathentry kind="lib" path="/Users/rajarshidas/DPGMM/Gaussian_LDA/external_libs/commons-math3-3.3/commons-math3-3.3-javadoc.jar"/>
+	<classpathentry kind="lib" path="/Users/rajarshidas/DPGMM/Gaussian_LDA/external_libs/commons-math3-3.3/commons-math3-3.3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

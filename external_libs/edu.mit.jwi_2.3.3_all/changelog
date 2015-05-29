@@ -1,0 +1,263 @@
+/******************************************************************************
+ * Copyright (c) 2007-2014 Massachusetts Institute of Technology.
+ * All rights reserved.
+ * 
+ * This program and the accompanying materials are made available under the 
+ * terms of the MIT Java Wordnet Interface License which accompanies this 
+ * distribution.  Please check the attached license for more details.
+ *
+ * To communicate praise, suggestions, constructive criticism, or feature
+ * requests, write:
+ *
+ * Mark Alan Finlayson
+ * email: markaf@alum.mit.edu
+ * post: 32 Vassar St., Room 32-258, Cambridge, MA 02138 USA
+ * web: http://www.mit.edu/~markaf/
+ *******************************************************************************/
+
+Changelog for edu.mit.jwi:
+
+Ver     : Release Date  : Changes
+=================================
+2.3.3   : Feb 12, 2014  : 1. Fixed Bug 023: RAMDictionary now properly handles underspecified word id objects
+----------------------------------
+2.3.2   : Dec 26, 2013  : 1. Fixed Bug 022: Minor changes to stemmer to correct lemma order and correctly handle nouns and verbs of two characters or fewer
+----------------------------------
+2.3.1   : Dec 09, 2013  : 1. Fixed Bug 021: Factored out IStemmingRule, and added check for nouns that end with 'ss'
+----------------------------------
+2.3.0   : Aug 28, 2013  : 1. Added IIndexWord.getPointers() method and IndexWord implementation thereof
+                          2. Added two IndexWord constructors allowing setting of pointers field
+                          3. Added IndexWordParser.resolvePointer(String, POS) method and its use in the parseLine(String) method
+                          4. Added Pointer.DOMAIN (symbol ';') and Pointer.MEMBER (symbol '-') so IndexWordParser.parseLine(String) doesn't throw an exception
+----------------------------------
+2.2.6   : Jun 25, 2013  : 1. Fixed Bug 020
+---------------------------------- 
+2.2.5   : Jun 17, 2013  : 1. Fixed Bug 019
+                          2. IItemID now implements Serializable 
+---------------------------------- 
+2.2.4   : Apr 13, 2013  : 1. Fixed Bug 017; added relevant FAQ
+                          2. Fixed Bug 018; tested on 3.0 database-only version; added relevant FAQ
+                          3. Tested JWI on Wordnet 3.1; added Version.ver31 field 
+----------------------------------        
+2.2.3   : Feb 25, 2012  : 1. Fixed Bug 015
+----------------------------------
+2.2.2   : Nov 16, 2011  : 1. Fixed Bug 014
+                          2. Changed license to CC-BY, allowing commercial use
+----------------------------------
+2.2.1   : Jun 15, 2011  : 1. Fixed Bug 013
+----------------------------------
+2.2.0   : May 17, 2011  : 1. Overhauled Javadoc and Manual
+                          2. Implemented in-memory dictionary
+                          3. Created IHasLifecycle and ICloseable interfaces, now implemented by IDictionary, IDataProvider, IDataSource, and ItemCache
+                              a) IDataSource objects must now be opened and closed via the open() and close() methods
+                              b) IDictionary.open() method now throws an IOException
+                              c) Renamed DictionaryClosedException to ObjectClosedException, and moved it into the IHasLifecycle interface
+                          4. Fixed Bug 012
+                              a) IDataSource now implements IHasLifecycle
+                              b) FileProvider now calls IDataSource.open() and .close() at appropriate places 
+                          5. Condensed iterator methods in WordnetFile hierarchy
+                              a) Moved iterator() and iterator(String) into WordnetFile class from subclasses
+                              b) Added WordnetFile.makeIterator(ByteBuffer, String) abstract method and implemented in subclasses
+                          6. Abstracted Dictionary class hierarchy a bit; moved caching functionality into one class (CachingDictionary), data source access into another (DataSourceDictionary)
+                          7. Removed IDataSourceDictionary#setDataProvider and #getSources() methods, added #getTypes() method
+                          8. Created the ILoadable and ILoadPolicy interfaces that allow data in WordnetFile objects to be loaded completely into memory
+                          9. Changed a few method contracts, making null-handling more consistent
+                          10. Renamed IWordID.getSenseNumber() to getWordNumber()
+----------------------------------
+2.1.5   : Dec 19, 2008  : 1. Added documentation that points from the ISenseKey interface to SenseKeyParser class
+                          2. Fixed Bug 011 (WordnetStemmer.findStems(String, POS))
+                          3. Make explicit that Dictionary class does no stemming, unlike Wordnet API
+                          4. Iterator returned by IDictionary.getExceptionEntryIterator(POS) now returns IExceptionEntry objects
+                          5. Added catch and warning for linefeed corrupted data files
+---------------------------------
+2.1.4   : Sep 11, 2008  : 1. Moved SenseKey.parseKey(String) to its own class, SenseKeyParser, for ease of modification
+                          2. Replaced call to SenseKey.parseKey(String) in SenseLineParser with call to SenseKeyParser.parseLine(String)
+                          3. Added UnknownLexFile class to allow support of Wordnet mods (such as Rion Snow's) that use non-standard lexical file numbers
+                          4. Modified SenseKeyParser and DataLineParser so they use UnknownLexFile class rather than throw NullPointerException on non-standard lexical file
+                          5. Fixed Bug 010 (Dictionary.getExceptionEntry(IExceptionEntryID) method)
+                          6. Replaced Pattern.quote(String) in Version class with string concatenation with \Q and \E for compatibility with GCJ 4.2
+                          7. Fixed javadoc SimpleStemmer.findStems(String, POS) that erroneously stated it would return null if no roots are found; it actually returns the empty list
+                          8. Refactored IWordID.getNumber() to IWordID.getSenseNumber() to make this call clearer.
+                          9. Tested JWI with Rion Snow's Augmented Wordnets 2.1 +10k, +20k, +30k, and +40k (downloaded 9/11/08).  Snow's files have errors in them that cause certain problems, but it works for the most part with JWI.
+---------------------------------
+2.1.3   : Mar 18, 2008  : 1. Fixed Bug 009
+                          2. WordnetFile.LineIterator#next() now properly throws a NoSuchElement exception
+---------------------------------
+2.1.2   : Mar 17, 2008  : 1. Optimized size of backing lists in IndexLineParser, DataLineParser, and ExceptionLineParser
+                          2. Fixed WordID so that it contains both word number and lemma for Word constructor
+                          3. Moved WordID.zeroFillWordNumber(int) to Word
+                          4. Added Word.checkWordNumber(int) and Word.isIllegalWordNumber(int) methods
+                          5. Added synchronization to the caches ItemCache
+                          6. Added code inside Dictionary.getWord(ISenseKey) to retrieve word when sense key is not in sense.index file
+                          7. Fixed IndexWordID constructor to properly replace whitespace with underscores
+                          8. Added IIndexWord#getTagSenseCount()
+                              a) Added arguments to IndexWord constructor
+                              b) Modified IndexWord#hashCode() and IndexWord#equals(Object)
+                              c) Modified IndexDataLineParser#parseLine(String line)
+                          9. Added IStemmer interface
+                              a) Combined getRoots(String) with getRoots(String, POS)
+                              b) Renamed getRoots(String, POS) methods to findStems(String, POS)
+---------------------------------
+2.1.1 : Jan 26, 2008    : 1. Fixed Bug 008 (SynsetID.hashCode() method)
+---------------------------------
+2.1.0 : Jan 24, 2008    : 1. Confirmed compatibility with Wordnet 1.6, 1.7 and 1.7.1
+                          2. Added access to index.sense file via sense entry class and interfaces
+                          3. Added AdjMarker enum; IWord.getAdjectiveMarker() now returns an instance of this class
+                          4. Fixed parsing code for ISynset.isAdjectiveHead()
+                          5. Changed IWord.getSynsetID() to IWord.getSynset()
+                              a) Removed IWord.getGloss(); call IWord.getSynset().getGloss() instead
+                          6. Added IVersion interface, Version class
+                          7. Added IHasVersion interface, now implemented by IDictionary, IDataProvider, and IDataSource
+                          8. Added ISenseKey interface, SenseKey class
+                          9. Added IDictionary.getSenseKey(IWord) that returns ISenseKey
+                          10. Added ISenseEntry interface, SenseEntry class
+                          11. Added IDictionary.getSenseEntry(ISenseKey) which returns ISenseEntry (from index.sense file)
+                          12. Added ILexFile interface, LexFile class
+                          13. Changed ISynset.getLexicalFileNum() to ISynset.getLexicalFile, which returns an ILexFile object
+                          14. Removed IDataProvider.iterator() method (redundant; call getSources().iterator() instead)
+                          15. Dictionary now automatically detects the version of Wordnet being used
+---------------------------------
+2.0.0 : Jan 8, 2008     : 1. Confirmed compatibility with Wordnet 2.0
+                          2. Improved use of parameterized types throughout
+                          3. Elimination of arrays as return values in favor of unmodifiable lists throughout
+                          4. Condensed the edu.mit.jwi.data and .content packages into one
+                          5. Data (edu.mit.jwi.data)
+                              a) Renamed WordnetDataType to DataType
+                              b) Renamed IDictionaryDataSource to IDataSource
+                              c) Renamed IDictionaryDataType to IDataType
+                              d) DataType is no longer an Enum, and can be used for constructing arbitrary data types
+                              e) IDataType is now parameterized
+                              f) Renamed DataProviderNotOpenException to DataProviderClosedException
+                              g) Added additional constructors to DataProviderClosedException class
+                              h) Removed IDataProvider.registerSource() method
+                              i) IDataSource is now parameterized
+                              j) IDataType objects now have an associated ILineParser object
+                              k) Removed caching from WordnetFile objects
+                              l) Eliminated the AbstractCachingDataSource class
+                              m) Renamed WordnetContentType to ContentType
+                              n) ContentType is no longer an Enum, and can be used for constructing arbitrary content types
+                              o) IContentType is now parameterized
+                              p) IContentType.getLineComparator() now returns an object of type ILineComparator
+                              q) Renamed IDataProvider.getFile() to getSource()
+                              r) Renamed IDataProvider.getAllFiles() to getSources()
+                              s) Removed IDataProvider.registerFile() method
+                              t) Removed WordnetFile class
+                              u) Added DirectAccessWordnetFile class
+                              v) Added BinarySearchWordnetFile class
+                              w) Changed FileProvider to use proper wordnet file class 
+                          6. Line Comparators (edu.mit.jwi.data.compare)
+                              a) Fomerly the edu.mit.jwi.content.compare package.
+                              b) Implemented a singleton design pattern for comparators and comment detector
+                              c) Eliminated StaticComparators class
+                              d) Added the ILineComparator interface, now implemented by the relevant comparators
+                          7. Line Parsers (edu.mit.jwi.data.parse)
+                              a) Moved the edu.mit.jwi.content.parse package to edu.mit.jwi.data.parse
+                              b) Implemented a singleton design pattern for line parsers
+                              c) Added additional constructors to MisformattedLineException class
+                              d) Added parsing for lexical file numbers and lexical ids
+                          8. Items (edu.mit.jwi.item)
+                              a) Renamed WordnetPointerType to Pointer
+                              b) Renamed IPointerType to IPointer
+                              c) Separated PERTAINYM and DERIVED_ADJ pointers
+                              d) Renamed PartOfSpeech to POS
+                              e) Renamed IHasPartOfSpeech to IHasPOS
+                              f) Added support for retrieving lexical file numbers to ISynset
+                              g) Added support for retrieving lexical ids to IWord
+                              h) Renamed IHasPOS.getPartOfSpeech() method to getPOS();
+                              i) Changed format of synset id's and word id's to use zero-filled numbers
+                              j) ISynset.getOffset() now returns an integer, with expected changes propagated
+                          9. Dictionary (edu.mit.jwi)
+                              a) Moved edu.mit.jwi.dict to edu.mit.jwi
+                              b) Separated IDictionary and IDataSourceDictionary interfaces
+                              c) Moved IDataProvider getter/setters from IDictionary interface to IDataSourceDictionary interface
+                              d) Dictionary class updated to implement IDataSourceDictionary
+                              e) Removed the IParserProvider interface and associated classes
+                              f) ILineParsers are now associated with IDataType objects
+                              g) Renamed DictionaryNotOpenException to DictionaryClosedException
+                              h) Removed IItemCache and associated classes
+                              i) Implemented a simpler cache, ItemCache (an LRU Cache), for caching in the Dictionary.
+--------------------------------
+1.1.3 : Aug 09, 2007    : 1. Fixed bug 007
+                          2. Fixed some comments in the IDictionary interface
+                          3. Updated license headers to specify TLO information
+---------------------------------
+1.1.2 : Jul 12, 2007    : 1. Fixed bug 006
+                          2. Reworked WordnetStemmer class to more closely follow the Morphy specs
+---------------------------------
+1.1.1 : May 21, 2007    : 1. Fixed bug 004
+                          2. Fixed bug 005
+                          3. Added additional comments to clarify difference between lexical & semantic pointers
+                          4. Changed IWord.getAllRelatedWords() signature to IWord.getRelatedWords()
+---------------------------------
+1.1.0 : Apr 28, 2007    : 1. Changed license to CCPL by-nc v3.0 unported
+                          2. Fixed bug 001 (resource URL problem)
+                              a) Added call to URLDecoder in getDirectoryHandle() method
+                          3. Fixed bug 002 (delay FileProvider instantiation)
+                              a) Dictionary: Moved FileProvider instantiation to open() method
+                              b) FileProvider: Moved null/file URL check to getDirectoryMethod() method
+                          4. Fixed bug 003 (unbounded cache)
+                              a) AbstractCachingParser: changed HashMap to WeakHashMap
+                              b) DataLineParser: removed caching
+                              c) IndexLineParser: removed caching
+                              d) ExceptionLineParser: removed caching
+                              e) IDAwareCache: added max capacity support, default = 10*initial
+                              f) Dictionary: made cache a field, not a superclass
+                              g) Added IClassCache, IClassCacheIDAware interfaces
+                              h) Renamed IDAwareCache to ClassCacheIDAware, separated out ClassCache implementation
+                              i) ClassCacheIDAware now implements IClassCacheIDAware
+                          5. Added feature 003 (Wordnet 3.0 support)
+                              a) Tested JWI with Wordnet 3.0 UNIX files
+                          6. Added feature 007 (more informative error messages on open() failure)
+                              a) IDataProvider: Added 'throws IOException' to open() method
+                              b) Added DataProviderNotOpenException class
+                              c) FileProvider: added checkOpen() calls
+                          7. Added feature 008 (access to providers via IDictionary interface)
+                              a) IDictionary: Added getters and setters for the providers
+---------------------------------           
+1.0.0 : Apr 23, 2007    : Initial Release under MIT license
+--------------------------------- 
+
+Bug Reports
+ID  : Priority : Reported  : Fixed in Ver : Description
+=======================================================
+023 : High     : 11 Feb 14 : 2.3.3  : RAMDictionary does not properly handle underspecified IWordID objects
+022 : Medium   : 17 Dec 13 : 2.3.2  : Stemmer does not properly handle two-character words or return lemmas in the same order as Morphy (reported by I. Huang)
+021 : Medium   : 03 Dec 13 : 2.3.1  : Stemmer does not properly handle nouns ending with 'ss' (reported by I. Huang)
+020 : High     : 24 Jun 13 : 2.2.6  : WordID toString() throws a NullPointerException when lemma=null (introduced when fixing Bug019, reported by M. Yahya)
+019 : Medium   : 08 Jun 13 : 2.2.5  : WordID hash code breaks hashCode() contract (reported by R. Passolini)
+018 : Medium   : 2012      : 2.2.4  : Dictionary throws NullPointerException when getExceptionIterator is called when exception files are missing
+017 : Medium   : 18 Sep 12 : 2.2.4  : FileProvider does not successfully find files not in all lowercase (reported by A. Gastaldo)
+016 : Medium   : 09 Sep 12 :        : RAMDictionary does not work for Snow's buggy Wordnets (reported by M. Marker)
+015 : Medium   : 01 Jan 12 : 2.2.3  : Exception in stemmer for words that look like suffixes (reported by S. Bethard)
+014 : High     : 02 Nov 11 : 2.2.2  : Repeat of Bug 013 but for adjectives (reported by Z. Wang)
+013 : High     : 14 Jun 11 : 2.2.1  : SimpleStemmer erroneously looks for suffixes other than at end of a word; this was introduced in the 2.2.0 code cleanup (reported by R. Purpuly)
+012 : Low      : 12 Aug 09 : 2.2.0  : FileProvider does not dispose file handles immediately when close() is called (reported by R. Menendez) 
+011 : Medium   : 15 Dec 08 : 2.1.5  : WordnetStemmer does not continue stemming when surface form is in Wordnet, e.g., "operations" does not return "operation" (reported by I. Dourado)
+010 : Medium   : 04 Jun 08 : 2.1.4  : NullPointerException when exception files are not in Wordnet directory (reported by C. Zamudio)
+009 : High     : 18 Mar 08 : 2.1.3  : Error in BinarySearchWordnetFile.BinarySearchLineIterator.findFirstLine() that caused a NullPointerException when the search key is lexiographically past the last line in the file (Reported by M. Barczynski)
+008 : Medium   : 26 Jan 08 : 2.1.1  : Error in SynsetID.hashCode() function that results in all hash codes for id's with same pos to be the same (reported by L. Mazuel)
+007 : High     : 09 Aug 07 : 1.1.3  : Minor error in binary search algorithm which defaults to last line under some conditions (reported by C. Rhee)
+006 : Medium   : 12 Jul 07 : 1.1.2  : WordnetStemmer doesn't handle composites properly, e.g., "taking off" or "going out" (reported by C. Hauff)
+005 : High     : 21 May 07 : 1.1.1  : WordnetFile does not return last line of verb.dat properly
+004 : High     : 21 May 07 : 1.1.1  : NullPointer exception in Word.getRelatedSynsets(IPointerType) when wordMap != null but does not contained requested pointer type (reported by D. Buscaldi)
+003 : High     : 28 Apr 07 : 1.1.0  : Caches grow without bound on heavy use, overflowing Java Heap
+002 : High     : 28 Apr 07 : 1.1.0  : Dictionary should delay IDataProvider initialization until open(), to allow delayed call to setSource(URL)
+001 : High     : 28 Apr 07 : 1.1.0  : Resource URL doesn't work for FileProvider
+
+Features planned for future releases:
+ID  : ETA      : Requested : Added in Ver : Description
+=======================================================
+014 : Jun 2013 : 08 Jun 13 : 2.2.5  : IItemID implements Serializable
+013 : Dec 2009 : 12 Aug 09 : 2.2.0  : In-memory Dictionary
+012 : ???      : 08 Jan 08 :        : Command-line access to Wordnet
+011 : ???      : 08 Jan 08 :        : Access to additional verb frames in sentidx.vrb and sents.vrb
+010 : ???      : 08 Jan 08 :        : Option to load verb frames on startup
+009 : Dec 2007 : 01 Jul 07 : 2.0.0  : Add getRelatedMap() method to IWord and ISynset interfaces
+008 : May 2007 : 23 Apr 07 : 1.1.0  : Access to DataProvider and ParserProvider via IDictionary interface
+007 : May 2007 : 23 Apr 07 : 1.1.0  : More informative error messages on failure to find dictionary files
+006 : Jan 2008 : 23 Apr 07 : 1.0.0  : JUnit test suite for development purposes (not included in regular distribution)
+005 : Never    : 23 Apr 07 : -      : Simple word-sense disambiguation
+004 : Jan 2008 : 23 Apr 07 : 2.1.0  : Access to sense count files
+003 : May 2007 : 23 Apr 07 : 1.1.0  : Support for Wordnet 3.0
+002 : ???      : 23 Apr 07 :        : Internationalized error messages
+001 : Never    : 23 Apr 07 : -      : Non-English Wordnet support (I'm monolingual, so someone else has to do it)
