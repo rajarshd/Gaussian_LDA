@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Gaussian LDA by rajarshd</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Gaussian LDA</h1>
+        <p></p>
+
+        <p class="view"><a href="https://github.com/rajarshd/Gaussian_LDA">View the Project on GitHub <small>rajarshd/Gaussian_LDA</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/rajarshd/Gaussian_LDA/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/rajarshd/Gaussian_LDA/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/rajarshd/Gaussian_LDA">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h3>
+<a id="abstract" class="anchor" href="#abstract" aria-hidden="true"><span class="octicon octicon-link"></span></a>Abstract</h3>
+
+<p>Continuous space word embeddings learned from large, unstructured corpora have been shown to be effective at capturing semantic regularities in language. In this paper we replace LDA's parameterization of "topics" as categorical distributions over opaque word types with multivariate Gaussian distributions on the embedding space. This encourages the model to group words that are a-priori known to be semantically related into topics. To perform inference, we introduce a fast collapsed Gibbs sampling algorithm based on Cholesky decompositions of covariance matrices of the posterior predictive distributions. We further derive a scalable algorithm that draws samples from stale posterior predictive distributions and corrects them with a Metropolis--Hastings step. Using vectors learned from a domain-general corpus (English Wikipedia), we report results on two document collections (20-newsgroups and NIPS). Qualitatively, Gaussian LDA infers different (but still very sensible) topics relative to standard LDA. Quantitatively, our technique outperforms existing models at dealing with OOV words in held-out documents.</p>
+
+<hr>
+
+<p><img src="https://github.com/rajarshd/Gaussian_LDA/blob/master/images/topics.png?raw=true" alt="Topics"></p>
+
+<hr>
+
+<p><img src="https://github.com/rajarshd/Gaussian_LDA/blob/master/images/plot.png?raw=true" alt="Plot"></p>
+
+<hr>
+
+<p><img src="https://github.com/rajarshd/Gaussian_LDA/blob/master/images/run_time.png?raw=true" alt="Run_time"></p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/rajarshd">rajarshd</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
