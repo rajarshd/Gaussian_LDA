@@ -14,15 +14,11 @@ Contact: Rajarshi Das (rajarshd@cs.umass.edu)
 
 Citation
 ```
-@InProceedings{das-zaheer-dyer:2015:ACL-IJCNLP,
+@InProceedings{das-zaheer-dyer:2015:ACL,
   author    = {Das, Rajarshi  and  Zaheer, Manzil  and  Dyer, Chris},
   title     = {Gaussian LDA for Topic Models with Word Embeddings},
   booktitle = {Proceedings of the 53rd Annual Meeting of the Association for Computational Linguistics and the 7th International Joint Conference on Natural Language Processing (Volume 1: Long Papers)},
-  month     = {July},
-  year      = {2015},
-  address   = {Beijing, China},
   publisher = {Association for Computational Linguistics},
-  pages     = {795--804},
   url       = {http://www.aclweb.org/anthology/P15-1077}
 }
 ```
