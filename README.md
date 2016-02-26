@@ -10,7 +10,7 @@ Implementation of the paper - <a href="http://rajarshd.github.io/papers/acl2015.
 ### Running the script
 Checkout run_gaussian_lda.sh. It should be self-explanatory.
 
-Contact: Rajarshi Das (rajarshd@cs.umass.edu)
+Contact: Rajarshi Das (rajarshi@cs.umass.edu)
 
 Citation
 ```
