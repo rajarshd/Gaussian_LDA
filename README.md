@@ -1,7 +1,7 @@
 # Gaussian_LDA
 Implementation of the paper - <a href="http://rajarshd.github.io/papers/acl2015.pdf">"Gaussian LDA for Topic Models with Word Embeddings"</a>
 
-###Data Format
+### Data Format
 
 * Embedding file: Each line of the file should contain the embedding (dense vector representation) for a word. Each vector should have the same dimension and each dimension should be space separated. The experiments were carried with word2vec embeddings trained on an English Wikipedia dataset. However our model is agnostic to the choice of word embedding procedure and you could use any embeddings (for example trained <a href="http://nlp.stanford.edu/projects/glove/">GLove vectors</a>)
 * Corpus train/test files: Here each line is a document with the words mapped as integers. The integer index of the word in your vocabulary should be equal to the position (line_number) of the word embedding in the embedding file. Please take care of 0-indexing.
