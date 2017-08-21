@@ -53,7 +53,7 @@ then
 fi
 
 #Create the directory structure
-time_stamp=`date "+%b_%d_%Y_%H.%M.%S"` 
+time_stamp=`date"+%b_%d_%Y_%H.%M.%S"` 
 DIR_NAME='output'/'D'$NUM_DIM/'I'$NUM_ITER/'K'$INITIAL_K/'GLDA'/$time_stamp/
 mkdir -p $DIR_NAME
 echo 'The output directory is' $DIR_NAME
