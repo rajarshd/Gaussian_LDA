@@ -460,7 +460,7 @@ public class GaussianLDA {
 		CommonOps.rowsToVector(data, dataVectors);
 		System.out.println("Total number of vectors are "+data.numRows);
 		//Read corpus
-		String inputCorpusFile = args[5];
+		String inputCorpusFile = args[6];
 		corpus = Data.readCorpus(inputCorpusFile);
 		System.out.println("Corpus file read");
 		N = corpus.size();
