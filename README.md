@@ -10,8 +10,7 @@ Implementation of the paper - <a href="http://rajarshd.github.io/papers/acl2015.
 ### Running the script
 Checkout run_gaussian_lda.sh. It should be self-explanatory.
 
-### Multilingual G-LDA
-Checkout the simple extensions of G-LDA to [multiple languages](https://github.com/EliasKB/Multilingual-Gaussian-Latent-Dirichlet-Allocation-MGLDA) and a [detailed project report](https://github.com/EliasKB/Multilingual-Gaussian-Latent-Dirichlet-Allocation-MGLDA/blob/master/MGLDA.pdf) by [Elias Kamyab](https://www.linkedin.com/in/elias-kamyab-71669014b/)
+
 
 
 Contact: Rajarshi Das (rajarshi@cs.umass.edu)
@@ -26,6 +25,8 @@ Citation
   url       = {http://www.aclweb.org/anthology/P15-1077}
 }
 ```
+### Multilingual G-LDA
+Checkout the simple extensions of G-LDA to [multiple languages](https://github.com/EliasKB/Multilingual-Gaussian-Latent-Dirichlet-Allocation-MGLDA) and a [detailed project report](https://github.com/EliasKB/Multilingual-Gaussian-Latent-Dirichlet-Allocation-MGLDA/blob/master/MGLDA.pdf) by [Elias Kamyab](https://www.linkedin.com/in/elias-kamyab-71669014b/)
 
 
 
