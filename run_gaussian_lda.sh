@@ -61,6 +61,7 @@ echo 'The output directory is' $DIR_NAME
 rm -rf bin/*
 
 #compile
+mkdir -p bin
 javac -sourcepath src/ -d bin/ -cp "external_libs/ejml-0.25.jar:external_libs/commons-logging-1.2/commons-logging-1.2.jar:external_libs/commons-math3-3.3/commons-math3-3.3.jar" src/sampler/GaussianLDA.java
 
 #run
